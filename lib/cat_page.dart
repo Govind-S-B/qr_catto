@@ -6,6 +6,14 @@ class CatDisplayPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+
+    int intColorCat = int.parse("FF$colorCat",radix:16);
+
+    return Scaffold(
+      backgroundColor: Color(intColorCat),
+      body: Center(
+        child: Image.asset("images/catto.gif"),
+      ),
+    );
   }
 }
