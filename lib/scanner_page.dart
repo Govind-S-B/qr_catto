@@ -25,7 +25,7 @@ class ScannerPage extends StatelessWidget {
               }
             }
           },),
-          QRScannerOverlay(overlayColour: Colors.black.withOpacity(0.5),)
+          QRScannerOverlay(imagePath: "images/test.jpg")
         ],
       ),
     );

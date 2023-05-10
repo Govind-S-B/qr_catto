@@ -1,10 +1,29 @@
 import 'package:flutter/material.dart';
 
-class QRScannerOverlay extends StatelessWidget {
-  const QRScannerOverlay({Key? key, required this.overlayColour})
-      : super(key: key);
+class InvertedClipper extends CustomClipper<Path> {
+  late double scanArea;
+  InvertedClipper({required this.scanArea});
 
-  final Color overlayColour;
+  @override
+  Path getClip(Size size) {
+    return Path()
+      ..addRect(Rect.fromLTWH(0, 0, size.width, size.height))
+      ..addRRect(RRect.fromRectAndRadius(
+          Rect.fromCenter(
+              center: Offset(size.width / 2, size.height / 2),
+              width: scanArea,
+              height: scanArea),
+          const Radius.circular(16)))
+      ..fillType = PathFillType.evenOdd;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
+}
+
+class QRScannerOverlay extends StatelessWidget {
+  final String imagePath;
+  const QRScannerOverlay({Key? key,required this.imagePath }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,30 +32,14 @@ class QRScannerOverlay extends StatelessWidget {
         ? 200.0
         : 330.0;
     return Stack(children: [
-      ColorFiltered(
-        colorFilter: ColorFilter.mode(
-            overlayColour, BlendMode.srcOut), // This one will create the magic
-        child: Stack(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                  color: Colors.red,
-                  backgroundBlendMode: BlendMode
-                      .dstOut), // This one will handle background + difference out
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                height: scanArea,
-                width: scanArea,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-            ),
-          ],
-        ),
+      ClipPath(
+        clipper: InvertedClipper(scanArea: scanArea),
+        child: SizedBox.expand(
+            child: Image.asset(
+          imagePath,
+          fit: BoxFit.cover,
+          opacity: const AlwaysStoppedAnimation(.9),
+        )),
       ),
       Align(
         alignment: Alignment.center,
