@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:qr_catto/qr_overlay.dart';
 
 import 'cat_page.dart';
 
@@ -23,7 +24,8 @@ class ScannerPage extends StatelessWidget {
                 // will add stuff
               }
             }
-          },)
+          },),
+          QRScannerOverlay(overlayColour: Colors.black.withOpacity(0.5),)
         ],
       ),
     );
