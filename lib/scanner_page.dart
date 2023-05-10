@@ -23,15 +23,15 @@ class ScannerPage extends StatelessWidget {
               try{
                 Map decodedQr = jsonDecode(barcode.rawValue!.toString());
                 Navigator.push(context, MaterialPageRoute(builder: (context) => CatDisplayPage(colorCat: decodedQr["color"],),));
-                debugPrint("yo");
                 cameraConroller.stop();
               }
               catch(r){
-                // will add stuff
+                // TO DO : add snack bar error message for this
+                debugPrint("Something went wrong with the qr");
               }
             }
           },),
-          QRScannerOverlay(imagePath: "images/test.jpg")
+          const QRScannerOverlay(imagePath: "images/test.jpg")
         ],
       ),
     );
