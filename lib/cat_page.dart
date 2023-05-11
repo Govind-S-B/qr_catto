@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gif_view/gif_view.dart';
 
 class CatDisplayPage extends StatelessWidget {
   final String colorCat;
@@ -16,7 +17,7 @@ class CatDisplayPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(intColorCat),
       body: Center(
-        child: Image.asset("images/catto.gif",color: Color(invertedColorHex(intColorCat)).withOpacity(0.5),colorBlendMode: BlendMode.srcATop,),
+        child: GifView.asset("images/catto.gif",color: Color(invertedColorHex(intColorCat)).withOpacity(0.5),colorBlendMode: BlendMode.srcATop,frameRate: 15),
       ),
     );
   }
