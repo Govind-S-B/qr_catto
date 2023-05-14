@@ -35,11 +35,8 @@ class QRScannerOverlay extends StatelessWidget {
       ClipPath(
         clipper: InvertedClipper(scanArea: scanArea),
         child: SizedBox.expand(
-            child: Image.asset(
-          imagePath,
-          fit: BoxFit.cover,
-          opacity: const AlwaysStoppedAnimation(.9),
-        )),
+                        child: DecoratedBox(decoration: BoxDecoration(color: Colors.black.withOpacity(0.5))),
+),
       ),
       Align(
         alignment: Alignment.center,
