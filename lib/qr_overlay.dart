@@ -22,8 +22,21 @@ class InvertedClipper extends CustomClipper<Path> {
 }
 
 class QRScannerOverlay extends StatelessWidget {
-  final String imagePath;
-  const QRScannerOverlay({Key? key,required this.imagePath }) : super(key: key);
+  late final Widget clippedWidget;
+  QRScannerOverlay({Key? key, String? imagePath, Color? color})
+      : super(key: key) {
+    if ((imagePath == null) && (color == null)) {
+      clippedWidget = const Placeholder();
+    } else if (imagePath != null) {
+      clippedWidget = Image.asset(
+        imagePath,
+        fit: BoxFit.cover,
+        opacity: const AlwaysStoppedAnimation(.9),
+      );
+    } else if (color != null) {
+      clippedWidget = DecoratedBox(decoration: BoxDecoration(color: color));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +48,8 @@ class QRScannerOverlay extends StatelessWidget {
       ClipPath(
         clipper: InvertedClipper(scanArea: scanArea),
         child: SizedBox.expand(
-                        child: DecoratedBox(decoration: BoxDecoration(color: Colors.black.withOpacity(0.5))),
-),
+          child: clippedWidget,
+        ),
       ),
       Align(
         alignment: Alignment.center,

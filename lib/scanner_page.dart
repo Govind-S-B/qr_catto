@@ -31,7 +31,7 @@ class ScannerPage extends StatelessWidget {
               }
             }
           },),
-          const QRScannerOverlay(imagePath: "images/test.jpg")
+          QRScannerOverlay(imagePath: "images/test.jpg",)
         ],
       ),
     );
